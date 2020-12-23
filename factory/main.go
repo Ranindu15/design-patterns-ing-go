@@ -3,56 +3,86 @@ package main
 import "fmt"
 
 func main() {
+	var result fPhone
 	var phoneBrand string
 	fmt.Scanln(&phoneBrand)
-	result, err := getPhone(phoneBrand)
-	if err != nil{
-		fmt.Println(err)
+	result = getPhone(phoneBrand)
+	fmt.Println("Your Phone Details :")
+	fmt.Println("Name: ",result.getName())
+	fmt.Println("Price: ", result.getPrice())
+}
+
+func getPhone(name string) (fPhone){
+	if name == "Apple"{
+		return newApple()
+	}else if name == "Samsung"{
+		return newSamsung()
+	}else if name == "Xiomi"{
+		return newXiomi()
+	}else{
+		return nil
 	}
-	fmt.Println("Your Phone Details :",result.price, result.name)
+}
+
+type fPhone interface {
+	setName(name string)
+	setPrice(price string)
+	getName() string
+	getPrice() string
+}
+
+func (fptr *phone) setName(pName string){
+	fptr.name = pName
+}
+func (fptr *phone) setPrice(pPrice string){
+	fptr.price = pPrice
+}
+func (fptr *phone) getName() string{
+	return fptr.name
+}
+func (fptr *phone) getPrice() string{
+	return fptr.price
 }
 
 type phone struct {
 	name string
 	price string
 }
-var err error = fmt.Errorf("not found")
 
-type fPhone phone
-
-func apple() phone{
-	return phone{
-		name: "Apple",
-		price: "999$",
-	}
+type apple struct {
+	phone
 }
-func samsung() phone{
-	return phone{
-		name: "Samsung",
-		price: "799$",
-	}
+type samsung struct {
+	phone
 }
-func xiomi() phone{
-	return phone{
-		name: "Xiomi",
-		price: "299$",
-	}
-}
-func defultPhone() phone{
-	return phone{
-		name: "Not found",
-		price: "000$",
-	}
+type xiomi struct {
+	phone
 }
 
-func getPhone(name string) (fPhone, error){
-	if name == "Apple"{
-		return fPhone(apple()),nil
-	}else if name == "Samsung"{
-		return fPhone(samsung()),nil
-	}else if name == "xiomi"{
-		return fPhone(xiomi()),nil
-	}else{
-		return fPhone(defultPhone()), err
+func newApple() fPhone{
+	return &apple{
+		phone{
+			name: "Apple",
+			price: "999$",
+		},
 	}
 }
+func newSamsung() fPhone{
+	return &samsung{
+		phone{
+			name: "Samsung",
+			price: "499$",
+		},
+	}
+}
+func newXiomi() fPhone{
+	return &xiomi{
+		phone{
+			name: "Xiomi",
+			price: "299$",
+		},
+	}
+}
+
+
+
