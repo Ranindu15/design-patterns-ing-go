@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6da49f8b-f3bc-47a8-a659-d75a33adffe0" name="Default Changelist" comment="" />
+    <list default="true" id="6da49f8b-f3bc-47a8-a659-d75a33adffe0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/prototype/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/prototype/main.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
