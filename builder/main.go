@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type iBuilder interface {
 	setWindowType()
 	setDoorType()
@@ -31,6 +33,7 @@ func getBuilder(builderType string) iBuilder {
 	}
 	return nil
 }
+
 func newNormalBuilder() *normalBuilder {
 	return &normalBuilder{}
 }
@@ -53,4 +56,68 @@ func (b *normalBuilder) getHouse() house {
 		windowType: b.windowType,
 		floor:      b.floor,
 	}
+}
+//----------------igloo-------------------------
+func newIglooBuilder() *iglooBuilder {
+	return &iglooBuilder{}
+}
+
+func (b *iglooBuilder) setWindowType() {
+	b.windowType = "Snow Window"
+}
+
+func (b *iglooBuilder) setDoorType() {
+	b.doorType = "Snow Door"
+}
+
+func (b *iglooBuilder) setNumFloor() {
+	b.floor = 1
+}
+
+func (b *iglooBuilder) getHouse() house {
+	return house{
+		doorType:   b.doorType,
+		windowType: b.windowType,
+		floor:      b.floor,
+	}
+}
+
+type director struct {
+	builder iBuilder
+}
+
+func newDirector(b iBuilder) *director {
+	return &director{
+		builder: b,
+	}
+}
+
+func (d *director) setBuilder(b iBuilder) {
+	d.builder = b
+}
+
+func (d *director) buildHouse() house {
+	d.builder.setDoorType()
+	d.builder.setWindowType()
+	d.builder.setNumFloor()
+	return d.builder.getHouse()
+}
+
+func main() {
+	normalBuilder := getBuilder("normal")
+	iglooBuilder := getBuilder("igloo")
+
+	director := newDirector(normalBuilder)
+	normalHouse := director.buildHouse()
+
+	fmt.Printf("Normal House Door Type: %s\n", normalHouse.doorType)
+	fmt.Printf("Normal House Window Type: %s\n", normalHouse.windowType)
+	fmt.Printf("Normal House Num Floor: %d\n", normalHouse.floor)
+
+	director.setBuilder(iglooBuilder)
+	iglooHouse := director.buildHouse()
+
+	fmt.Printf("\nIgloo House Door Type: %s\n", iglooHouse.doorType)
+	fmt.Printf("Igloo House Window Type: %s\n", iglooHouse.windowType)
+	fmt.Printf("Igloo House Num Floor: %d\n", iglooHouse.floor)
 }
