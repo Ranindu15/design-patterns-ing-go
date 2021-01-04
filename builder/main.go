@@ -34,9 +34,9 @@ func getBuilder(builderType string) iBuilder {
 	return nil
 }
 
-func newNormalBuilder() *normalBuilder {
-	return &normalBuilder{}
-}
+//func newNormalBuilder() *normalBuilder {
+//	return &normalBuilder{}
+//}
 
 func (b *normalBuilder) setWindowType() {
 	b.windowType = "Wooden Window"
@@ -58,9 +58,9 @@ func (b *normalBuilder) getHouse() house {
 	}
 }
 //----------------igloo-------------------------
-func newIglooBuilder() *iglooBuilder {
-	return &iglooBuilder{}
-}
+//func newIglooBuilder() *iglooBuilder {
+//	return &iglooBuilder{}
+//}
 
 func (b *iglooBuilder) setWindowType() {
 	b.windowType = "Snow Window"
